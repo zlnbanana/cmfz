@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.zln.cmfz.dao.PictureDao">
+
+    <resultMap id="PictureMap" type="com.zln.cmfz.entity.Picture">
+        <id property="pictureId" column="picture_id"></id>
+        <result property="picturePath" column="picture_path"></result>
+        <result property="pictureDate" column="picture_date"></result>
+        <result property="pictureDesc" column="picture_description"></result>
+        <result property="pictureStatus" column="picture_status"></result>
+    </resultMap>
+
+    <select id="selectAllPic" resultMap="PictureMap">
+        select * from t_picture limit #{begin},#{end}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from t_picture
+    </select>
+
+    <insert id="insertPic">
+        insert into t_picture
+        values(#{pictureId},#{picturePath},#{pictureDate},#{pictureDesc},#{pictureStatus})
+    </insert>
+
+    <update id="updatePic">
+        update t_picture
+        set picture_path=#{picturePath},picture_date=#{pictureDate},picture_description=#{pictureDesc},picture_status=#{pictureStatus}
+        where picture_id=#{pictureId}
+    </update>
+
+     
+</mapper>
