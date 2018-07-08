@@ -1,14 +1,24 @@
 package com.zln.cmfz.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 /**
  * Created by zhanglijiao on 2018/7/6.
  * 上师实体类
  */
 public class Master {
 
+    // easypoi  @Excel 指定excel表格中列和属性的映射关系
+
     private Integer masterId;
+
+    @Excel(name = "上师法名")
     private String masterName;
+
+    @Excel(name = "上师图片")
     private String masterPhoto;
+
+    @Excel(name = "上师简介")
     private String masterSummary;
 
     public Master() {

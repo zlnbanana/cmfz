@@ -19,7 +19,7 @@
 
     <insert id="insertMaster">
         insert into t_master
-        values(#{masterName},#{masterPhoto},#{masterSummary})
+        values(#{masterId},#{masterName},#{masterPhoto},#{masterSummary})
     </insert>
 
     <update id="updateMaster">
@@ -27,6 +27,28 @@
         set master_name=#{masterName},master_photo=#{masterPhoto},master_summary=#{masterSummary}
         where master_id=#{masterId}
     </update>
+
+
+    <!-- 模糊查询 -->
+    <select id="selectMaster" resultMap="MasterMap">
+        select * from t_master
+        where master_name like concat('%',#{value},'%')
+        limit #{begin},#{end}
+    </select>
+
+    <select id="total" resultType="java.lang.Integer">
+        select count(*) from t_master where master_name like concat('%',#{value},'%')
+    </select>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch">
+        insert into t_master
+        values
+        <foreach collection="list" separator="," item="master">
+            (#{master.masterId},#{master.masterName},#{master.masterPhoto},#{master.masterSummary})
+        </foreach>
+
+    </insert>
 
      
 </mapper>

@@ -33,8 +33,6 @@ public class MasterServiceImpl implements MasterService{
         return map;
     }
 
-
-
     @Override
     public int addMaster(Master master) {
         int result = masterDao.insertMaster(master);
@@ -45,6 +43,22 @@ public class MasterServiceImpl implements MasterService{
     @Override
     public int modifyMaster(Master master) {
         int result = masterDao.updateMaster(master);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> queryMaster(String value, Integer nowPage, Integer pageSize) {
+        List<Master> persons = masterDao.selectMaster(value,(nowPage-1)*pageSize , pageSize);
+        int totalRows = masterDao.total(value);
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", totalRows);
+        map.put("rows", persons);
+        return map;
+    }
+
+    @Override
+    public int addBatch(List<Master> masters) {
+        int result = masterDao.insertBatch(masters);
         return result;
     }
 }

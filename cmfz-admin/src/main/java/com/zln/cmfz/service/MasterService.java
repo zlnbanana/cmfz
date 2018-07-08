@@ -2,6 +2,7 @@ package com.zln.cmfz.service;
 
 import com.zln.cmfz.entity.Master;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,5 +31,17 @@ public interface MasterService {
      * @return
      */
     public int modifyMaster(Master master);
+
+    /**
+     * 根据上师法名模糊查询
+     */
+    public Map<String,Object> queryMaster(String value,Integer nowPage,Integer pageSize);
+
+    /**
+     * 批量插入上师信息 Excel
+     * @param masters
+     * @return
+     */
+    public int addBatch(List<Master> masters);
 
 }

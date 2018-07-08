@@ -21,7 +21,7 @@
 	</script>
 
 	<br>
-	<form id="ff" method="post" style="text-align: center" enctype="multipart/form-data">
+	<form id="picff" method="post" style="text-align: center" enctype="multipart/form-data">
 		<table style="text-align: right">
 			<tr>
 				<td>轮播图描述：</td>

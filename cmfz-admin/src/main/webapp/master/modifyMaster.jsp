@@ -9,7 +9,7 @@
 	</script>
 
 	<br>
-	<form id="ff" method="post">
+	<form id="masff" method="post">
 		<table style="text-align: right">
 			<tr>
 				<td>上师编号：</td>

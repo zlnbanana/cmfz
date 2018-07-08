@@ -7,23 +7,41 @@
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="this is my page">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    
-	<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-	<link rel="stylesheet" href="css/common.css" type="text/css"></link>
-	<link rel="stylesheet" href="css/login.css" type="text/css"></link>
-	<script type="text/javascript" src="script/jquery.js"></script>
-	<script type="text/javascript" src="script/common.js"></script>
+
+	<link rel="icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" type="text/css"></link>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css"></link>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
 	<script type="text/javascript">
 	
 		$(function(){
 			//点击更换验证码：
 			$("#captchaImage").click(function(){//点击更换验证码
-                document.getElementById('validateImage').src='${pageContext.request.contextPath}/mgr/imageCode?time-'+(new Date()).getTime();
+                document.getElementById('captchaImage').src='${pageContext.request.contextPath}/mgr/imageCode?time-'+(new Date()).getTime();
 			});
+
+            var str = "${cookie.name.value}";
+            var newStr = decodeURI(str);
+            $("#name").val(newStr);
 			
 			//  form 表单提交
 			$("#loginForm").bind("submit",function(){
-				url:"${pageContext.request.contextPath}/mgr/login";
+				var name = $("#name").val();
+                var pwd = $("#pwd").val();
+                var code = $("#enCode").val();
+                if(name==""){
+                    alert("用户名不能为空！");
+                }
+                if(pwd==""){
+                    alert("密码不能为空！");
+                }
+                if(code==""){
+                    alert("验证码不能为空！");
+                }
+                if(name!=""&&pwd!=""&&code!=""){
+                    return true;
+                }
 				return false;
 			});
 		});
@@ -32,23 +50,23 @@
 <body>
 	
 	<div class="login">
-		<form id="loginForm" action="../back/index.html" method="post" >
+		<form id="loginForm" action="${pageContext.request.contextPath}/mgr/login" method="post" >
 
 			<table>
 				<tbody>
 					<tr>
 						<td width="190" rowspan="2" align="center" valign="bottom">
-							<img src="img/header_logo.gif" />
+							<img src="${pageContext.request.contextPath}/img/header_logo.gif" />
 						</td>
 						<th>用户名:</th>
 						<td>
-							<input type="text"  name="manager.mgrName" class="text" value="mgrName" maxlength="20"/>
+							<input id="name" type="text" name="mgrName" class="text" maxlength="20"/>
 						</td>
 				  	</tr>
 				  	<tr>
 						<th>密&nbsp;&nbsp;&nbsp;码:</th>
 						<td>
-							<input type="password" name="manager.mgrPwd" class="text" value="mgrPwd" maxlength="20" autocomplete="off"/>
+							<input id="pwd" type="password" name="mgrPwd" class="text" maxlength="20" autocomplete="off"/>
 						</td>
 					</tr>
 					<tr>
@@ -64,7 +82,7 @@
 						<th>&nbsp;</th>
 						<td>
 							<label>
-								<input type="checkbox" id="isRememberUsername" value="true"/> 记住用户名
+								<input type="checkbox" id="isRememberUsername" name="checkbox" value="true"/> 记住用户名
 							</label>
 						</td>
 					</tr>
@@ -72,7 +90,8 @@
 						<td>&nbsp;</td>
 						<th>&nbsp;</th>
 						<td>
-							<input type="button" class="homeButton" value="" onclick="location.href='/'"><input type="submit" class="loginButton" value="登录">
+							<input type="button" class="homeButton" value="" onclick="location.href='/'">
+							<input type="submit" class="loginButton" value="登录">
 						</td>
 					</tr>
 				</tbody>

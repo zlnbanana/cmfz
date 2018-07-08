@@ -14,7 +14,7 @@
 	</script>
 
 	<br>
-	<form id="ff" method="post" style="text-align: center" enctype="multipart/form-data">
+	<form id="masff" method="post" style="text-align: center" enctype="multipart/form-data">
 		<table style="text-align: right">
 			<tr>
 				<td>上师法名：</td>

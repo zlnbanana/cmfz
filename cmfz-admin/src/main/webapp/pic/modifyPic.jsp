@@ -9,7 +9,7 @@
 	</script>
 
 	<br>
-	<form id="ff" method="post">
+	<form id="picff" method="post">
 		<table style="text-align: right">
 			<tr>
 				<td>标识编号：</td>

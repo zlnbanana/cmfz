@@ -3,7 +3,7 @@
 
     <script type="text/javascript">
         $(function(){
-            $('#tb').datagrid({
+            $('#pictb').datagrid({
                 url:'${pageContext.request.contextPath}/pic/showAllPic',
                 columns:[[
                     {field:'pictureId',title:'标识编号',width:150},
@@ -23,7 +23,7 @@
                 pagination : true, //在DataGrid控件底部显示分页工具栏
                 pageList : [ 5, 10, 15, 20, 25 ],
                 pageSize : 5,
-                toolbar : "#tlb", //工具栏
+                toolbar : "#pictlb", //工具栏
                 fitColumns: true, //真正的自动展开/收缩列的大小，以适应网格的宽度，防止水平滚动。
                 singleSelect:true, //只允许选择一行
                 striped:true, //显示斑马线效果
@@ -46,10 +46,10 @@
         //弹窗
         $(function() {
             //增
-            $("#add").linkbutton({
+            $("#picadd").linkbutton({
                 onClick:function(){
                     //展示一个对话框窗口
-                    $("#dialog").dialog({
+                    $("#picdialog").dialog({
                         title:"新增轮播图",
                         width:500,
                         height:300,
@@ -60,13 +60,13 @@
                             text:"保存",
                             iconCls:"icon-disk",
                             handler:function(){
-                                $("#ff").form("submit",{
+                                $("#picff").form("submit",{
                                     url:"${pageContext.request.contextPath}/pic/addPic",
                                     success:function(res){
                                         if(res=="success"){
                                             $.messager.alert('提示消息','上传成功');
-                                            $("#dialog").dialog("close");
-                                            $("#tb").datagrid({
+                                            $("#picdialog").dialog("close");
+                                            $("#pictb").datagrid({
                                                 url : "${pageContext.request.contextPath}/pic/showAllPic",
                                             })
                                         }
@@ -78,19 +78,65 @@
                             iconCls:"icon-cancel",
                             handler:function(){
                                 //关闭对话框窗口
-                                $("#dialog").dialog("close");
+                                $("#picdialog").dialog("close");
                             }
                         }],
                     });
                 },
             });
+
+            //修改
+            $("#picmodify").linkbutton({
+                onClick: function () {
+                    var rowData = $("#pictb").datagrid("getSelected");
+                    //展示一个对话框窗口
+                    $("#picdialog").dialog({
+                        title:"修改轮播图信息",
+                        width:500,
+                        height:300,
+                        href:"${pageContext.request.contextPath}/pic/modifyPic.jsp",
+                        modal:true,
+                        shadow:true,
+                        buttons:[{
+                            text:"保存",
+                            iconCls:"icon-disk",
+                            handler:function(){
+                                $("#picff").form("submit",{
+                                    url:"${pageContext.request.contextPath}/pic/modifyPic",
+                                    success:function(res){
+                                        if(res=="success"){
+                                            $.messager.alert('提示','修改成功');
+                                            $("#picdialog").dialog("close");
+                                            $("#pictb").datagrid({
+                                                url : "${pageContext.request.contextPath}/pic/showAllPic",
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        },{
+                            text:"取消",
+                            iconCls:"icon-cancel",
+                            handler:function(){
+                                //关闭对话框窗口
+                                $("#picdialog").dialog("close");
+                            }
+                        }],
+                        onLoad:function(){
+                            $("#picff").form("load",rowData);//在加载时将行数据加载到表单元素中
+                        }
+                    });
+
+                }
+            });
+
         });
 
         //修改
         function picModify(){
-            var rowData = $("#tb").datagrid("getSelected");
+            var rowData = $("#pictb").datagrid("getSelected");
             //展示一个对话框窗口
-            $("#dialog").dialog({
+            $("#picdialog").dialog({
                 title:"修改轮播图信息",
                 width:500,
                 height:300,
@@ -101,13 +147,13 @@
                     text:"保存",
                     iconCls:"icon-disk",
                     handler:function(){
-                        $("#ff").form("submit",{
+                        $("#picff").form("submit",{
                             url:"${pageContext.request.contextPath}/pic/modifyPic",
                             success:function(res){
                                 if(res=="success"){
                                     $.messager.alert('提示','修改成功');
-                                    $("#dialog").dialog("close");
-                                    $("#tb").datagrid({
+                                    $("#picdialog").dialog("close");
+                                    $("#pictb").datagrid({
                                         url : "${pageContext.request.contextPath}/pic/showAllPic",
                                     })
                                 }
@@ -119,11 +165,11 @@
                     iconCls:"icon-cancel",
                     handler:function(){
                         //关闭对话框窗口
-                        $("#dialog").dialog("close");
+                        $("#picdialog").dialog("close");
                     }
                 }],
                 onLoad:function(){
-                    $("#ff").form("load",rowData);//在加载时将行数据加载到表单元素中
+                    $("#picff").form("load",rowData);//在加载时将行数据加载到表单元素中
                 }
             });
         }
@@ -131,18 +177,21 @@
     </script>
 
 
-    <table id="tb"></table>
+    <table id="pictb"></table>
 
-    <div id="tlb" style="display: none">
+    <div id="pictlb" style="display: none">
 
-        <a id="add" class="easyui-linkbutton"
+        <a id="picadd" class="easyui-linkbutton"
            data-options="iconCls:'icon-add',plain:true,text:'新增轮播图'"></a>
 
-        <a id="help" class="easyui-linkbutton"
+        <a id="picmodify" class="easyui-linkbutton"
+           data-options="iconCls:'icon-edit',plain:true,text:'修改轮播图信息'"></a>
+
+        <a id="pichelp" class="easyui-linkbutton"
            data-options="iconCls:'icon-help',plain:true,text:'帮助'"></a>
 
     </div>
 
-    <div id="dialog"></div>
+    <div id="picdialog"></div>
 
 

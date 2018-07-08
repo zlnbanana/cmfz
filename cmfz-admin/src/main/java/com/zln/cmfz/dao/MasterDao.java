@@ -17,12 +17,18 @@ public interface MasterDao {
 
     public int insertMaster(Master master);
 
+//    public int deleteMaster(Master master);
+
     public int updateMaster(Master master);
 
 
     //模糊查询
+    public List<Master> selectMaster(@Param("value") String value, @Param("begin")Integer begin ,@Param("end")Integer end);
+    public int total(@Param("value") String value);
 
     //批量插入
+    public int insertBatch(@Param("list") List<Master> masters);
+
 
 
 
