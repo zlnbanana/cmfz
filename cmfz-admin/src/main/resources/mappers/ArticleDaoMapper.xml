@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+<mapper namespace="com.zln.cmfz.dao.ArticleDao">
+
+    <resultMap id="ArticleMap" type="com.zln.cmfz.entity.Article">
+        <id property="articleId" column="article_id"></id>
+        <result property="articleName" column="article_name"></result>
+        <result property="articleTime" column="article_time"></result>
+        <result property="introduction" column="introduction"></result>
+        <result property="articlePic" column="article_pic"></result>
+        <result property="masterID" column="master_id"></result>
+        <result property="articleStatus" column="article_status"></result>
+    </resultMap>
+
+   <insert id="insertArticle">
+       insert into t_article
+       values(#{articleId},#{articleName},#{articleTime},#{introduction},#{articlePic},#{masterID},#{articleStatus})
+   </insert>
+
+
+</mapper>

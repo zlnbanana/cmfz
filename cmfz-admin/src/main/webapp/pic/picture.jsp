@@ -13,12 +13,13 @@
                     {field:'pictureDate',title:'轮播图创建时间',width:120,},
                     {field:'operation',title:'操作',width:50,
                             formatter:function(value,row,index){ // 格式化展示数据到对应的列
-                                return "<a class='easyui-linkbutton' data-options=\"iconCls:'icon-edit' \" onclick='picModify()'>修改</a>"
+                                return "<a id='picModify' class='easyui-linkbutton' data-options=\"iconCls:'icon-edit' \" onclick='picModify()'>修改</a>"
                             }
                     }
                 ]],
                 onLoadSuccess:function(){
-                    $.parser.parse(); //解析器  解析所有页面
+                  //  $.parser.parse(); //解析器  解析所有页面
+                    $("a[id='picModify']").linkbutton({});
                 },
                 pagination : true, //在DataGrid控件底部显示分页工具栏
                 pageList : [ 5, 10, 15, 20, 25 ],

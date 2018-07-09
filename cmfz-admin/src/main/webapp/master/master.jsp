@@ -12,12 +12,12 @@
                     {field:'masterSummary',title:'上师简介',width:120,},
                     {field:'operation',title:'操作',width:50,
                             formatter:function(value,row,index){ // 格式化展示数据到对应的列
-                                return "<a class='easyui-linkbutton' data-options=\"iconCls:'icon-edit' \" onclick='masModify()'>修改</a>"
+                                return "<a id='masModify' class='easyui-linkbutton' data-options=\"iconCls:'icon-edit' \" onclick='masModify()'>修改</a>"
                             }
                     }
                 ]],
                 onLoadSuccess:function(){
-                    $.parser.parse(); //解析器  解析所有页面
+                    $("a[id='masModify']").linkbutton({});
                 },
                 pagination : true, //在DataGrid控件底部显示分页工具栏
                 pageList : [ 5, 10, 15, 20, 25 ],
@@ -67,6 +67,8 @@
                                             $("#mastb").datagrid({
                                                 url : "${pageContext.request.contextPath}/master/showAllMaster",
                                             })
+                                        } else{
+                                            $.messager.alert('提示消息','上传失败');
                                         }
                                     }
                                 });

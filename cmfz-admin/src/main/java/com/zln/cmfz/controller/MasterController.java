@@ -41,7 +41,6 @@ public class MasterController {
         String realPath = session.getServletContext().getRealPath("").replace("cmfz-admin","upload//master");
         String oldName = myFile.getOriginalFilename();
         myFile.transferTo(new File(realPath + "/" + oldName));
-        System.out.println("Hello");
         master.setMasterPhoto(oldName);
         int result = masterService.addMaster(master);
         if(result != 0){
@@ -53,8 +52,6 @@ public class MasterController {
     @RequestMapping("/modifyMaster")
     @ResponseBody
     public String modifyMaster(Master master){
-        System.out.println(master.getMasterId());
-        System.out.println(master);
         int result = masterService.modifyMaster(master);
         if(result != 0){
             return "success";
@@ -82,8 +79,6 @@ public class MasterController {
          * 参数二：pojo
          * 参数三：导入参数对象
          */
-
-
         ImportParams importParams = new ImportParams();
       //  importParams.setHeadRows(1);
         List<Master> masters = ExcelImportUtil.importExcel(excel.getInputStream(),Master.class,importParams);

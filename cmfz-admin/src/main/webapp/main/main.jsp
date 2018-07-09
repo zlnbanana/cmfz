@@ -3,14 +3,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="text/html; charset=utf-8">
     <title>持名法州主页</title>
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
 
     <script type="text/javascript">
         function addTab(menuName,menuUrl,menuIcon){
@@ -21,14 +21,13 @@
                 $("#tt").tabs("add",{
                     title:menuName,
                     iconCls:menuIcon,
-                    selected:true,
                     closable:true,
                     href:"${pageContext.request.contextPath}/"+menuUrl,
                 });
             }else{
                 $("#tt").tabs("select",menuName);
             }
-        }
+        };
 
 	    $(function(){
 	        $.ajax({

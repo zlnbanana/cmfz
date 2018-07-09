@@ -35,11 +35,10 @@ public class PictureController {
 
         //上传文件
         //获得文件夹名称
-        System.out.println(picture);
         String realPath = session.getServletContext().getRealPath("").replace("cmfz-admin","upload/picture");
-        String oldName = myFile.getOriginalFilename();
-        myFile.transferTo(new File(realPath+"/"+oldName));//直接将myFile代表的对象写入到新文件中
-        picture.setPicturePath(oldName);
+        String picName = myFile.getOriginalFilename();
+        myFile.transferTo(new File(realPath+"/"+picName));//直接将myFile代表的对象写入到新文件中
+        picture.setPicturePath(picName);
         int result = pictureService.addPic(picture);
         if(result != 0){
             return "success";
