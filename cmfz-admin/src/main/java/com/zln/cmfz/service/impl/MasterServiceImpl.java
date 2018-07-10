@@ -25,7 +25,7 @@ public class MasterServiceImpl implements MasterService{
 
     @Override
     public Map<String, Object> queryAllMaster(Integer nowPage, Integer pageSize) {
-        List<Master> masters = masterDao.selectAllMaster((nowPage-1)*pageSize, pageSize );
+        List<Master> masters = masterDao.selectAllMaster((nowPage-1)*pageSize, pageSize);
         int totalRows = masterDao.count();
         Map<String,Object> map = new HashMap<>();
         map.put("total",totalRows);

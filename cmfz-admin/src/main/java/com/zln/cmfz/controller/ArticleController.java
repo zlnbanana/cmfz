@@ -1,6 +1,7 @@
 package com.zln.cmfz.controller;
 
 import com.zln.cmfz.entity.Article;
+import com.zln.cmfz.entity.Master;
 import com.zln.cmfz.entity.RichTextResult;
 import com.zln.cmfz.service.ArticleService;
 import org.apache.commons.io.FilenameUtils;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -28,17 +31,18 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-
     /**
      * 创建文章
      */
     @RequestMapping("/addArticle")
     @ResponseBody
     public String addArticle(Article article , MultipartFile myFile, HttpSession session) throws Exception{
+        //封面
         String realPath = session.getServletContext().getRealPath("").replace("cmfz-admin","upload/article");
         String picName = myFile.getOriginalFilename();
         myFile.transferTo(new File(realPath+"/"+picName));//直接将myFile代表的对象写入到新文件中
         article.setArticlePic(picName);
+
         int result = articleService.addArticle(article);
         if(result > 0){
             return "success";
@@ -73,6 +77,19 @@ public class ArticleController {
             e.printStackTrace();
         }
         return result;
+    }
+
+
+    @RequestMapping("/showAllArticle")
+    public @ResponseBody Map<String,Object> queryAllArticle(@RequestParam("page")Integer nowPage,@RequestParam("rows")Integer pageSize){
+        return articleService.queryAllArticles(nowPage,pageSize);
+    }
+
+    @RequestMapping("/showAllMaster")
+    @ResponseBody
+    public List<Master> queryMaster(){
+        List<Master> masters = articleService.queryMaster();
+        return masters;
     }
 }
 

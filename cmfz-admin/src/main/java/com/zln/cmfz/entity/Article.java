@@ -18,20 +18,20 @@ public class Article implements Serializable {
     private Date articleTime;
     private String introduction;
     private String articlePic;
-    private Integer masterID;
+    private Integer masterId;
     private String articleStatus;
 
     public Article() {
         super();
     }
 
-    public Article(Integer articleId, String articleName, Date articleTime, String introduction, String articlePic, Integer masterID, String articleStatus) {
+    public Article(Integer articleId, String articleName, Date articleTime, String introduction, String articlePic, Integer masterId, String articleStatus) {
         this.articleId = articleId;
         this.articleName = articleName;
         this.articleTime = articleTime;
         this.introduction = introduction;
         this.articlePic = articlePic;
-        this.masterID = masterID;
+        this.masterId = masterId;
         this.articleStatus = articleStatus;
     }
 
@@ -75,12 +75,12 @@ public class Article implements Serializable {
         this.articlePic = articlePic;
     }
 
-    public Integer getMasterID() {
-        return masterID;
+    public Integer getMasterId() {
+        return masterId;
     }
 
-    public void setMasterID(Integer masterID) {
-        this.masterID = masterID;
+    public void setMasterId(Integer masterId) {
+        this.masterId = masterId;
     }
 
     public String getArticleStatus() {
@@ -99,7 +99,7 @@ public class Article implements Serializable {
                 ", articleTime=" + articleTime +
                 ", introduction='" + introduction + '\'' +
                 ", articlePic='" + articlePic + '\'' +
-                ", masterID=" + masterID +
+                ", masterId=" + masterId +
                 ", articleStatus='" + articleStatus + '\'' +
                 '}';
     }

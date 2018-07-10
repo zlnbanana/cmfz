@@ -8,14 +8,22 @@
         <result property="articleTime" column="article_time"></result>
         <result property="introduction" column="introduction"></result>
         <result property="articlePic" column="article_pic"></result>
-        <result property="masterID" column="master_id"></result>
+        <result property="masterId" column="master_id"></result>
         <result property="articleStatus" column="article_status"></result>
     </resultMap>
 
    <insert id="insertArticle">
        insert into t_article
-       values(#{articleId},#{articleName},#{articleTime},#{introduction},#{articlePic},#{masterID},#{articleStatus})
+       values(#{articleId},#{articleName},#{articleTime},#{introduction},#{articlePic},#{masterId},#{articleStatus})
    </insert>
+
+    <select id="selectArticles" resultMap="ArticleMap">
+        select * from t_article limit #{begin},#{end}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from t_article
+    </select>
 
 
 </mapper>

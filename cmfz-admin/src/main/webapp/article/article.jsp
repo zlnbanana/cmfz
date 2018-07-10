@@ -1,118 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 
-
-    <script type="text/javascript">
-        $(function(){
-            $("#addArticle").linkbutton({
-                onClick:function(){
-                    $("#artff").form("submit",{
-                        url:"${pageContext.request.contextPath}/article/addArticle",
-                        /*onSubmit : function(param) {
-                            console.log("提交前执行");
-                            param.introduction = editor.txt.html();
-                            return $("#artff").form("validate");
-                        },*/
-                        success:function(res){
-                            if(res=="success"){
-                                $.messager.alert('提示消息','创建成功');
-                            } else {
-                                $.messager.alert("提示消息","创建失败");
-                            }
-                        }
-                    });
+<script type="text/javascript">
+    $(function(){
+        $("#arttb").datagrid({
+            url:'${pageContext.request.contextPath}/article/showAllArticle',
+            columns:[[
+                {field:'articleId',title:'文章编号',width:60},
+                {field:'articleName',title:'文章标题',width:100},
+                {field:'articleTime',title:'创建时间',width:100},
+                {field:'articlePic',title:'文章封面',width:100},
+                {field:'masterID',title:'文章作者',width:60},
+                {field:'articleStatus',title:'文章状态',width:80},
+                {field:'operation',title:'操作',width:100,
+                    formatter:function(value,row,index){ // 格式化展示数据到对应的列
+                        return "<a id='artShow' class='easyui-linkbutton' data-options=\"iconCls:'icon-edit' \" onClick='showArticle()'>查看详情</a>"
+                    }
                 }
-            });
+            ]],
+            onLoadSuccess:function(){
+                $("a[id='artShow']").linkbutton({});
+            },
+            pagination : true, //在DataGrid控件底部显示分页工具栏
+            pageList : [ 5, 10, 15, 20, 25 ],
+            pageSize : 5,
+            toolbar : "#arttlb", //工具栏
+            fitColumns: true, //真正的自动展开/收缩列的大小，以适应网格的宽度，防止水平滚动。
+            singleSelect:true, //只允许选择一行
+            striped:true, //显示斑马线效果
+            remoteSort:false, //定义从服务器对数据进行排序
+            nowrap:false, //如果为true，则在同一行中显示数据。设置为true可以提高加载性能。
 
-
-            $("#reBoot").linkbutton({
-                onClick:function() {
-                    editor.txt.clear();
-                },
-            })
-        })
-
-        $('#pic').filebox({
-            buttonText: "选择图片",
-            buttonIcon: "icon-note",
-            buttonAlign: 'right'
-        })
-
-        $('#status').combobox({
-            limitToList:true,//设置为true时，输入的值只能是列表框中的内容
-            panelHeight:50, //下拉面板高度
+            view: detailview,
+            // 展示内容
+            detailFormatter: function(rowIndex, rowData){//detailFormatter函数返回行详细内容
+                return '<table><tr>' +
+                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/article/'+ rowData.articlePic +'" style="height:50px;"></td>' +
+                    '<td style="border:0">' +
+                    '<p>文章标题: ' + rowData.articleName + '</p>' +
+                    '<p>文章封面: ' + rowData.articlePic + '</p>' +
+                    '</td>' +
+                    '</tr></table>';
+            }
         });
-    </script>
-
-<form id="artff" method="post" enctype="multipart/form-data" style="background: #a3c4d7;">
-
-    <div style="margin: 0px 30px;">
-        <table>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td style="text-align: right">文章标题：</td>
-                <td>
-                    <input id="name" class="easyui-textbox" style="width:230px" name="articleName"/>
-                </td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td style="text-align: right">文章作者：</td>
-                <td>
-                    <input id="master" class="easyui-textbox" style="width:230px" name="masterID"/>
-                </td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td style="text-align: right">文章状态：</td>
-                <td>
-                    <select id="status" class="easyui-combobox" name="articleStatus" style="width:230px;">
-                        <option value="上架">上架</option>
-                        <option value="下架">下架</option>
-                    </select>
-                </td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td style="text-align: right">文章封面：</td>
-                <td>
-                    <input id="pic" class="easyui-filebox" style="width:230px" name="myFile" />
-                </td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td style="text-align: right">文章内容：</td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="editor" style="margin: 0px 30px;">
-        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
-    </div>
-    <div style="background: #a3c4d7;height: 80px;margin: 0px 30px;">
-        <table>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-                <td><a id="addArticle">创建文章</a></td>
-                <td><a id="reBoot">重置内容</a></td>
-            </tr>
-        </table>
-    </div>
-
-</form>
+    });
 
 
-    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/wangEditor.min.js"></script>
-    <script type="text/javascript">
-        var E = window.wangEditor
-        var editor = new E('#editor');
-        // 或者 var editor = new E( document.getElementById('editor') )
-        editor.customConfig.uploadImgServer = '${pageContext.request.contextPath}/article/upload';  // 上传图片到服务器
-        editor.customConfig.uploadFileName = 'files'; //上传图片的名称
-        editor.create()
-    </script>
+    //弹窗
+    function showArticle() {
+        //查看详情
+        //展示一个对话框窗口
+        $("#artdialog").dialog({
+            title:"文章内容",
+            width:500,
+            height:600,
+            href:"${pageContext.request.contextPath}/article/showArticle.jsp",
+            modal:true,
+            minimizable:true,
+            maximizable:true,
+            onLoad:function(){
+                var rowData = $("#arttb").datagrid("getSelected");
+                document.getElementById("hh").innerHTML=rowData.articleName;
+                document.getElementById("hh1").innerHTML=rowData.introduction;
+            }
+        });
+    };
 
+</script>
+
+
+<table id="arttb"></table>
+
+<div id="artdialog"></div>
 
 
