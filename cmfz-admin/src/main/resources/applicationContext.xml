@@ -44,7 +44,7 @@
 
 
     <!-- 注册额外功能-->
-    <bean id="myAspect" class="com.zln.cmfz.service.LogService"></bean>
+    <bean id="myAspect" class="com.zln.cmfz.service.AspectService"></bean>
     <!-- 使用aspectj 风格aop-->
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 

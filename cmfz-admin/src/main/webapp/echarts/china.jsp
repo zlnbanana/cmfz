@@ -88,7 +88,7 @@
 
     $(function () {
         $.post("${pageContext.request.contextPath}/echarts/distribution1", function (data) {
-            console.log(data);
+
             myChart.setOption({
                 series: [{
                     // 根据名字对应到相应的系列
@@ -99,7 +99,7 @@
         }, "json");
 
         $.post("${pageContext.request.contextPath}/echarts/distribution2", function (data) {
-            console.log(data);
+
             myChart.setOption({
                 series: [{
                     // 根据名字对应到相应的系列

@@ -1,14 +1,8 @@
 package com.zln.cmfz.test;
 
 
-import com.zln.cmfz.dao.ManagerDao;
-import com.zln.cmfz.dao.MasterDao;
-import com.zln.cmfz.dao.MenuDao;
-import com.zln.cmfz.dao.PictureDao;
-import com.zln.cmfz.entity.Manager;
-import com.zln.cmfz.entity.Master;
-import com.zln.cmfz.entity.Menu;
-import com.zln.cmfz.entity.Picture;
+import com.zln.cmfz.dao.*;
+import com.zln.cmfz.entity.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -61,5 +55,16 @@ public class ManagerTest {
         }
     }
 
+
+    @Test
+    public void log(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        LogDao logDao = (LogDao) context.getBean("logDao");
+        List<Log> logs = logDao.selectLog(0,3);
+        for (Log log : logs) {
+            System.out.println(log);
+        }
+
+    }
 
 }

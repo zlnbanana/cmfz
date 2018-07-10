@@ -44,7 +44,7 @@
 		*/
         // 异步加载统计信息
 		$.post("${pageContext.request.contextPath }/echarts/activeUser",function(data){
-			console.log(data);
+
         	// 使用刚指定的配置项和数据显示图表。
 			myChart.setOption({
                 xAxis: {
@@ -53,7 +53,7 @@
 				series: [{
 		            // 根据名字对应到相应的系列
 		            name: '活跃用户',
-		            data: data.counts
+		            data: data.counts,
         		}]
 			});
 		},"json");
